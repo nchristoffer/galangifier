@@ -1,0 +1,40 @@
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><form id="linkgen" method="post" name="linkgen" onsubmit="return generateUrl()">
+<table border="0" cellspacing="10" class="no-borders" style="width: 100%;">
+<tbody>
+<tr>
+<td align="left" colspan="2">Legg inn fast nettadresse: <input name="requrl" size="60" type="text"><!--Empty Anchor tags are non-semantic and should be deprecated--> </td>
+</tr>
+<tr>
+<td><input onclick="return generateUrl()" type="button" value="Få ny lenke"></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td colspan="2" id="url_display">
+<div id="url_link"></div>
+
+</td></tr>
+</tbody>
+</table>
+</form>
+<script type="text/javascript">// 
+function GoUrl() {
+var ezproxy="https://galanga.hvl.no/login?url=";
+var urlin = document.linkgen.requrl.value;
+ezproxy = ezproxy + urlin;
+window.location = ezproxy;
+}
+function generateUrl() {
+var ezproxy="https://galanga.hvl.no/login?url=";
+var urlin = document.linkgen.requrl.value;
+ezproxy = ezproxy + urlin
+// This assumes the link to change is always the 29th link on the page
+//document.links[29].firstChild.nodeValue = ezproxy;
+//document.links[29].href = ezproxy;
+// This refers to the &lt;a&gt; element by name... a better way to do it.
+var linkdisp = document.getElementById('url_link');
+linkdisp.innerHTML = ezproxy;
+//linkdisp.firstChild.nodeValue = ezproxy;
+//linkdisp.href = ezproxy;
+}
+// </script> </body></html>
