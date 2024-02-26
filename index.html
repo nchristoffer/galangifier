@@ -1,57 +1,55 @@
-
 <html>
   <head>
-  <title>Galangifier</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Galangifier</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   </head>
-<body>
-  <h2>Galangifier</h2>
-  
-<form id="linkgen" method="post" name="linkgen" onsubmit="return generateAndCopyUrl()">
-        <table border="0" cellspacing="10" class="no-borders" style="width: 100%;">
-            <tbody>
-                <tr>
-                    <td align="left" colspan="2">Legg inn fast nettadresse: <input name="requrl" id="requrl" size="60" type="text"></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" value="Få ny lenke og kopier til utklippstavlen"></td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td colspan="2" id="url_display">
-                        <div id="url_link"></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+  <body>
+    <h2>Galangifier</h2>
+    
+    <form id="linkgen" method="post" name="linkgen" onsubmit="return generateAndCopyUrl()">
+      <table border="0" cellspacing="10" class="no-borders" style="width: 100%;">
+        <tbody>
+          <tr>
+            <td align="left" colspan="2">Legg inn fast nettadresse: <input name="requrl" id="requrl" size="60" type="text"></td>
+          </tr>
+          <tr>
+            <td><input type="submit" value="Få ny lenke og kopier til utklippstavlen"></td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="2" id="url_display">
+              <div id="url_link"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </form>
 
     <script type="text/javascript">
-        function GoUrl() {
-            var ezproxy = "https://galanga.hvl.no/login?url=";
-            var urlin = document.linkgen.requrl.value;
-            ezproxy = ezproxy + urlin;
-            window.location = ezproxy;
+      function generateAndCopyUrl() {
+        var ezproxy = "https://galanga.hvl.no/login?url=";
+        var urlin = document.linkgen.requrl.value;
+        var linkdisp = document.getElementById('url_link');
+
+        if (urlin.startsWith("10.")) {
+          ezproxy += "https://doi.org/" + urlin;
+        } else {
+          ezproxy += urlin;
         }
 
-        function generateAndCopyUrl() {
-            var ezproxy = "https://galanga.hvl.no/login?url=";
-            var urlin = document.linkgen.requrl.value;
-            ezproxy = ezproxy + urlin;
-            var linkdisp = document.getElementById('url_link');
-            linkdisp.innerHTML = ezproxy;
+        linkdisp.innerHTML = ezproxy;
             
-            // Copy the URL to the clipboard
-            var tempInput = document.createElement("input");
-            tempInput.value = ezproxy;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
+        // Copy the URL to the clipboard
+        var tempInput = document.createElement("input");
+        tempInput.value = ezproxy;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
 
-            // Prevent form submission
-            return false;
-        }
+        // Prevent form submission
+        return false;
+      }
     </script>
-</body>
+  </body>
 </html>
